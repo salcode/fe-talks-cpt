@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Iron Code Talks Custom Post Type
  * Plugin URI: https://github.com/salcode/fe-talks-cpt
- * Description: Create Custom Post Type for Talks
+ * Description: Create Custom Post Type for Talks. Requires PHP 7.0+
  * Version: 0.1.0
  * Author: Sal Ferrarello
  * Author URI: http://salferrarello.com/
