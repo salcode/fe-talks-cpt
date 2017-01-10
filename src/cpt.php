@@ -32,7 +32,18 @@ class Cpt {
 		$this->post_type = $post_type;
 	}
 
+	/**
+	 * Register post type.
+	 *
+	 * Call WordPress native function register_post_type().
+	 */
 	public function register() {
-		register_post_type( $this->post_type, $this->args );
+		$result = register_post_type( $this->post_type, $this->args );
+		if ( is_wp_error( $result ) ) {
+			throw new \Exception(
+				$result->get_error_code() . ' ' .
+				$result->get_error_message()
+			);
+		}
 	}
 }
