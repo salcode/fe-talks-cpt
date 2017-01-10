@@ -10,7 +10,6 @@
 			"email": "info@ironcodestudio.com"
 		}
 	],
-	"minimum-stability": "dev",
 	"require": {
 		"composer/installers": "~1.0"
 	},
