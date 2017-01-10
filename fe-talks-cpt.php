@@ -19,5 +19,10 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require __DIR__ . '/vendor/autoload.php';
 }
 
-$talks_cpt = new Cpt( 'fe_talks' );
-$talks_cpt->register();
+add_action( 'init', function() {
+	$talks_cpt = new Cpt( 'fe_talk', [
+		'label' => 'Talks',
+		'public' => true,
+	] );
+	$talks_cpt->register();
+});
