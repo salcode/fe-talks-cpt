@@ -19,5 +19,5 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require __DIR__ . '/vendor/autoload.php';
 }
 
-$talks_cpt = new Cpt();
+$talks_cpt = new Cpt( 'fe_talks' );
 $talks_cpt->register();
