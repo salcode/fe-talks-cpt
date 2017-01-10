@@ -11,9 +11,13 @@
  *
  * @package fe-talks-cpt
  */
+namespace IronCode\TalksCpt;
+
+use \IronCode\Fe_Cpt\Cpt;
 
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require __DIR__ . '/vendor/autoload.php';
 }
 
-$talks_cpt = new Fe_CPT();
+$talks_cpt = new Cpt();
+$talks_cpt->register();
