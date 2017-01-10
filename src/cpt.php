@@ -30,5 +30,6 @@ class Cpt {
 	}
 
 	public function register() {
+		register_post_type( $this->post_type, $this->args );
 	}
 }
