@@ -11,3 +11,9 @@
  *
  * @package fe-talks-cpt
  */
+
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require __DIR__ . '/vendor/autoload.php';
+}
+
+$talks_cpt = new Fe_CPT();
