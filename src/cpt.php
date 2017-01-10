@@ -4,7 +4,7 @@
  *
  * @package   IronCode\Fe_Cpt
  * @author    Sal Ferrarello
- * @copyright 2016 Iron Code Studio
+ * @copyright 2017 Iron Code Studio
  * @license   MIT License
  */
 
