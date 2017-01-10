@@ -24,5 +24,10 @@ add_action( 'init', function() {
 		'label' => 'Talks',
 		'public' => true,
 	] );
-	$talks_cpt->register();
+
+	try {
+		$talks_cpt->register();
+	} catch ( \Exception $e ) {
+		error_log( 'Plugin "Iron Code Talks Custom Post Type" Failed to create CPT: WP Error ' . $e->getMessage() );
+	}
 });
