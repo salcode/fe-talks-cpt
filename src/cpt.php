@@ -16,7 +16,11 @@ class Cpt {
 	protected $args;
 
 	public function __construct( string $post_type, array $args = [] ) {
+		$this->set_post_type( $post_type );
+		$this->args = $args;
+	}
 
+	private function set_post_type( string $post_type ) {
 		if ( '' === $post_type ) {
 			throw new \InvalidArgumentException( 'Cpt parameter $post_type must be a non-empty string' );
 		}
@@ -26,7 +30,6 @@ class Cpt {
 		}
 
 		$this->post_type = $post_type;
-		$this->args = $args;
 	}
 
 	public function register() {
