@@ -15,11 +15,22 @@ class Cpt {
 	protected $post_type;
 	protected $args;
 
+	/**
+	 * Cpt constructor.
+	 *
+	 * @param string $post_type The post type of this custom post type.
+	 * @param array $args Arguments for defining this custom post type.
+	 */
 	public function __construct( string $post_type, array $args = [] ) {
 		$this->set_post_type( $post_type );
 		$this->args = $args;
 	}
 
+	/**
+	 * Set post type.
+	 *
+	 * @param string $post_type The post type of this custom post type.
+	 */
 	private function set_post_type( string $post_type ) {
 		if ( '' === $post_type ) {
 			throw new \InvalidArgumentException( 'Cpt parameter $post_type must be a non-empty string' );
