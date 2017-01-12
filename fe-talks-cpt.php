@@ -20,10 +20,8 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 }
 
 add_action( 'init', function() {
-	$talks_cpt = new Cpt( 'fe_talk', [
-		'label' => 'Talks',
-		'public' => true,
-	] );
+	// Parameters are: $post_type, $plural, $singular, $rewrite, (optional) $args
+	$talks_cpt = new Cpt( 'fe_talk', 'Talks', 'Talk', 'talks' );
 
 	try {
 		$talks_cpt->register();
