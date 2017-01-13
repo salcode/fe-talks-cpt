@@ -17,16 +17,26 @@ use PHPUnit_Framework_TestCase;
  *
  * @package IronCode\Fe_Cpt
  */
-class LabelsTest extends PHPUnit_Framework_TestCase {
-	public function testLabelsEmptyString() {
+class CptLabelsTest extends PHPUnit_Framework_TestCase {
+	public function testCptLabelsEmptyPluralString() {
 		$this->expectException( \InvalidArgumentException::class );
-		$labels = new Labels( '' );
+		$labels = new CptLabels( '', 'Duck' );
 	}
 
-	public function testLabelsSingleValue() {
-		$labels = new Labels( 'Ducks' );
+	public function testCptLabelsEmptySingularString() {
+		$this->expectException( \InvalidArgumentException::class );
+		$labels = new CptLabels( 'Ducks', '' );
+	}
+
+	public function testCptLabelsSingleValue() {
+		$labels = new CptLabels( 'Ducks', 'Duck' );
 		$result = $labels->to_array();
 		$this->assertEquals( 'Ducks', $result['name'] );
 	}
 
+	public function testCptLabelsDefaultLabelArrayParam() {
+		$labels = new CptLabels( 'Ducks', 'Duck', [ 'name' => 'fred' ] );
+		$result = $labels->to_array();
+		$this->assertEquals( 'fred', $result['name'] );
+	}
 }
