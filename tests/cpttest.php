@@ -18,36 +18,19 @@ use PHPUnit_Framework_TestCase;
  * @package IronCode\Fe_Cpt
  */
 class CptTest extends PHPUnit_Framework_TestCase {
-	public function no_testPostTypeEmptyString() {
+
+	public function testNoPostType() {
 		$this->expectException( \InvalidArgumentException::class );
-		$cpt = new Cpt( '','Many', 'One', 'slug' );
+		$cpt = new Cpt( '', [] );
 	}
 
-	public function no_testPluralEmptyString() {
-		$this->expectException( \InvalidArgumentException::class );
-		$cpt = new Cpt( 'fe_book', '', 'One', 'slug' );
-	}
-
-	public function no_testSingularEmptyString() {
-		$this->expectException( \InvalidArgumentException::class );
-		$cpt = new Cpt( 'fe_book', 'Many', '', 'slug' );
-	}
-
-	public function no_testRewriteSlugEmptyString() {
-		$this->expectException( \InvalidArgumentException::class );
-		$cpt = new Cpt( 'fe_book', 'Many', 'One', '' );
-	}
-
-	public function no_testNoPrefixInPostType() {
+	public function testNoPrefixInPostType() {
 		$this->expectException( \PHPUnit_Framework_Error_Notice::class );
-		$cpt = new Cpt( 'books', 'Many', 'One', 'slug' );
+		$cpt = new Cpt( 'duck', [] );
 	}
 
-	public function no_testCustomPostTypeNoArgs() {
-		$cpt = new Cpt( 'fe_books', 'Many', 'One', 'slug' );
-		$args = $cpt->populate_args();
-		$this->assertEquals( 1, $args['public'] );
-		$this->assertEquals( 'Many', $args['label'] );
+	public function testNoArgs() {
+		$this->expectException( \PHPUnit_Framework_Error_Notice::class );
+		$cpt = new Cpt( 'duck', [] );
 	}
-
 }
