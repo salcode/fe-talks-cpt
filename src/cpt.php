@@ -12,73 +12,44 @@ namespace IronCode\Fe_Cpt;
 
 class Cpt {
 
-	protected $post_type;
-	protected $plural;
-	protected $singular;
+
+	/**
+	 * String
+	 */
 	protected $rewrite_slug;
+
+	/**
+	 * array
+	 * Array of args for defining Custom Post Type settings.
+	 */
 	protected $args;
 
 	/**
 	 * Cpt constructor.
 	 *
-	 * @param string $post_type    The post type of this custom post type.
-	 * @param string $plural       The plural form for the label.
-	 * @param string $singular     The singular form for the label.
-	 * @param string $rewrite_slug The URL rewrite slug.
-	 * @param array  $args         Arguments for defining this custom post type.
-	 *                                 These are NOT overwritten by the generated values.
+	 * @param string $post_type The post type of this custom post type.
+	 * @param array  $args      Array of args for defining Custom Post Type settings.
 	 */
-	public function __construct(
-		string $post_type,
-		string $plural,
-		string $singular,
-		string $rewrite_slug,
-		array $args = []
-	) {
-		$this->validate_string_property( 'post_type',     $post_type );
-		$this->validate_string_property( 'plural',        $plural );
-		$this->validate_string_property( 'singular',      $singular );
-		$this->validate_string_property( 'rewrite_slug',  $rewrite_slug );
-
-		$this->post_type    = $post_type;
-		$this->plural       = $plural;
-		$this->singular     = $singular;
-		$this->rewrite_slug = $rewrite_slug;
-
+	public function __construct( string $post_type, array $args ) {
+		$this->set_post_type( $post_type );
 		$this->args = $args;
 	}
 
 	/**
-	 * Validate string property.
+	 * Set post_type
 	 *
-	 * Current confirms the string is NOT empty.
-	 * @param  string $property_name The name of property.
-	 * @param  string $value         The value for the property.
-	 * @throws InvalidArgumentException
-	 * @throws Error_Notice
+	 * @param string $post_type The slug for registering the post type.
+	 * @throws InvalidArgumentException When the post_type is an empty string.
+	 * @throws A warning when the post_type does not have an underscore (_) (e.g. not prefixed)
 	 */
-	private function validate_string_property( string $variable_name, string $value ) {
-		if ( '' === $value ) {
-			throw new \InvalidArgumentException( 'Cpt property ' . $variable_name . ' must be a non-empty string' );
-		}
+	public function set_post_type( $post_type ) {
+		if ( '' === $post_type ) { throw new \InvalidArgumentException( 'Cpt argument $post_type must not be an empty string.' ); }
 
-		if ( 'post_type' === $variable_name && false === strpos( $value, '_' ) ) {
+		if ( false === strpos( $post_type, '_' ) ) {
 			// Throw Error Notice if the post_type is NOT prefixed.
 			trigger_error( 'Cpt property $post_type should be prefixed with letters and an underscore to avoid collisions. See https://salferrarello.com/cpt-best-practices/#prefix-post-type' );
 		}
-	}
-
-	/**
-	 * Populate args
-	 *
-	 * Populate unset args, while keeping existing args if they exist.
-	 *
-	 * @return array $this->args The arguments for the register_post_type() call.
-	 */
-	public function populate_args() {
-		$this->args['public'] = true;
-		$this->args['label'] = $this->plural;
-		return $this->args;
+		$this->post_type = $post_type;
 	}
 
 	/**
@@ -89,7 +60,7 @@ class Cpt {
 	 * @throws Exception When the post type fails to register.
 	 */
 	public function register() {
-		$result = register_post_type( $this->post_type, $this->populate_args() );
+		$result = register_post_type( $this->post_type, $this->args );
 		if ( is_wp_error( $result ) ) {
 			throw new \Exception(
 				$result->get_error_code() . ' ' .

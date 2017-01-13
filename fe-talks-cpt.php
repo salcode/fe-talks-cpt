@@ -14,6 +14,8 @@
 namespace IronCode\TalksCpt;
 
 use \IronCode\Fe_Cpt\Cpt;
+use \IronCode\Fe_Cpt\CptLabels;
+use \IronCode\Fe_Cpt\CptArgs;
 
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require __DIR__ . '/vendor/autoload.php';
@@ -21,10 +23,16 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 
 add_action( 'init', function() {
 	// Parameters are: $post_type, $plural, $singular, $rewrite, (optional) $args
-	$talks_cpt = new Cpt( 'fe_talk', 'Talks', 'Talk', 'talks' );
+	$post_type   = 'fe_talk';
+	$plural      = 'Talks';
+	$singular    = 'Talk';
+	$rewrite     = 'talks';
 
 	try {
-		$talks_cpt->register();
+		$labels   = new CptLabels( $plural, $singular );
+		$cpt_args = new CptArgs( $rewrite, $labels->to_array() );
+		$talks    = new Cpt( 'fe_talk', $cpt_args->to_array() );
+		$talks->register();
 	} catch ( \Exception $e ) {
 		error_log( 'Plugin "Iron Code Talks Custom Post Type" Failed to create CPT: WP Error ' . $e->getMessage() );
 	}
